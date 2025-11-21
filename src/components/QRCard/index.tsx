@@ -1,5 +1,5 @@
 import React from "react";
-import { DeleteIcon } from "../../icons/Delete";
+import { DeleteIcon } from "../../app/icons/Delete";
 import Image from 'next/image';
 
 interface IQRCard {
