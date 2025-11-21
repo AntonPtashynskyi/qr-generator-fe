@@ -6,14 +6,13 @@
 }
 
 @theme {
-  --color-carbon-black: #D1F8EF;
-  --color-brown: #ffffff;
-  --color-custom-orange: #70B2B2;
-  --color-floral-white: #9ECFD4;
+  --color-sea-green: #D1F8EF;
+  --color-custom-green: #70B2B2;
   --color-spicy-paprika: #eb5e28;
+  --color-button-green: #00bf9a;
 
-  --color-button-hover: #d55525;
-  --color-button-active: #eb5e28;
+  --color-button-hover: #008a6f;
+  --color-button-active: #04e8bb;
 }
 
 @theme inline {
@@ -25,7 +24,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--color-carbon-black);
+    --background: var(--color-sea-green);
     --foreground: var(--color-floral-white);
   }
 }
@@ -33,5 +32,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter, Helvetica, sans-serif;
 }

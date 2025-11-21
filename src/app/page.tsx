@@ -1,19 +1,35 @@
-// import Image from "next/image";
-import Button from "./components/Button/Button";
+"use server";
+import { QRCodeGenerationForm } from "./components/QRCodeGenerationForm";
+import QRCard from "./components/QRCard";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <div className="flex flex-row w-full h-screen gap-0.5 p-0.5">
-      <div className="w-[16rem] h-full bg-brown p-2 rounded-sm flex flex-col gap-3">
-        {/* User Account component */}
-        <div className='w-full p-2 flex gap-3 items-center justify-start bg-transparent border-solid border-black border-1 rounded-3xl'>
-          <div className='logo w-6 h-6 rounded-full bg-black'></div>
-          <p className='uppercase text-black block mx-auto'>Anton Profile</p>
-        </div>
-        {/* Create QR code button */}
-        <Button/>
+    <div className="flex flex-col w-full h-screen gap-2 p-0.5 max-w-[1440px] mx-auto mt-1.5">
+      <div className=" w-full bg-white rounded-md p-3">
+        Generate your QR Codes
       </div>
-      <div className="flex-1 h-full bg-brown rounded-sm"></div>
+      <div className="flex-1 bg-white rounded-sm p-3 flex flex-col gap-3 ">
+        <QRCodeGenerationForm />
+        <div className="w-full bg-sea-green p-6 rounded-md justify-start">
+          <QRCard
+            targetUrl="https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forms_and_events"
+            scanCount={0}
+            qrCodeId="1"
+          />
+           <QRCard
+            targetUrl="https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forms_and_events"
+            scanCount={0}
+            qrCodeId="1"
+          />
+           <QRCard
+            targetUrl="https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forms_and_events"
+            scanCount={0}
+            qrCodeId="1"
+          />
+        </div>
+      </div>
     </div>
   );
 }
+
+// grid gap-6 grid-cols-[repeat(auto-fit,minmax(220px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(500px,1fr))] 
