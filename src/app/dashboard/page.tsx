@@ -1,11 +1,13 @@
 import QRCard from '../../components/QRCard';
 import { QRCodeGenerationForm } from '../../components/QRCodeGenerationForm';
+import { LogoutButton } from '../../components/LogoutButton';
 
 export default async function Dashboard() {
   return (
     <div className="flex flex-col w-full h-screen gap-2 p-0.5 max-w-[1440px] mx-auto mt-1.5">
-      <div className=" w-full bg-white rounded-md p-3">
-        Generate your QR Codes
+      <div className="w-full bg-white rounded-md p-3 flex justify-between items-center">
+        <h1 className="text-lg font-semibold">Generate your QR Codes</h1>
+        <LogoutButton />
       </div>
       <div className="flex-1 bg-white rounded-sm p-3 flex flex-col gap-3 ">
         <QRCodeGenerationForm />
