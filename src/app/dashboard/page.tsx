@@ -1,8 +1,50 @@
-import QRCard from '../../components/QRCard';
-import { QRCodeGenerationForm } from '../../components/QRCodeGenerationForm';
-import { LogoutButton } from '../../components/LogoutButton';
+import QRCard from "../../components/QRCard";
+import { QRCodeGenerationForm } from "../../components/QRCodeGenerationForm";
+import { LogoutButton } from "../../components/LogoutButton";
+import { cookies } from "next/headers";
+
+interface QRCode {
+  id: string;
+  targetUrl: string;
+  scanCount: number;
+  date: Date;
+}
+
+async function fetchQRCodes(): Promise<QRCode[]> {
+  try {
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    if (!accessToken) {
+      return [];
+    }
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/codes/all-codes`,
+      {
+        headers: {
+          Cookie: `accessToken=${accessToken}`,
+        },
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) {
+      console.error("Failed to fetch QR codes");
+      return [];
+    }
+
+    const data = await response.json();
+    return data.codes || [];
+  } catch (error) {
+    console.error("Error fetching QR codes:", error);
+    return [];
+  }
+}
 
 export default async function Dashboard() {
+  const qrCodes = await fetchQRCodes();
+
   return (
     <div className="flex flex-col w-full h-screen gap-2 p-0.5 max-w-[1440px] mx-auto mt-1.5">
       <div className="w-full bg-white rounded-md p-3 flex justify-between items-center">
@@ -12,24 +54,22 @@ export default async function Dashboard() {
       <div className="flex-1 bg-white rounded-sm p-3 flex flex-col gap-3 ">
         <QRCodeGenerationForm />
         <div className="w-full bg-sea-green p-6 rounded-md justify-start">
-          <QRCard
-            targetUrl="https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forms_and_events"
-            scanCount={0}
-            qrCodeId="1"
-          />
-           <QRCard
-            targetUrl="https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forms_and_events"
-            scanCount={0}
-            qrCodeId="1"
-          />
-           <QRCard
-            targetUrl="https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forms_and_events"
-            scanCount={0}
-            qrCodeId="1"
-          />
+          {qrCodes.length > 0 ? (
+            qrCodes.map((code) => (
+              <QRCard
+                key={code.id}
+                targetUrl={code.targetUrl}
+                scanCount={code.scanCount}
+                qrCodeId={code.id}
+              />
+            ))
+          ) : (
+            <p className="text-center text-gray-500">
+              No QR codes yet. Create your first one above!
+            </p>
+          )}
         </div>
       </div>
     </div>
   );
 }
-

@@ -1,19 +1,49 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "../Button";
+import { useRouter } from "next/navigation";
 
 export const QRCodeGenerationForm = () => {
   const [targetUrl, setTargetUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
 
-  const formHandler = (e: React.SyntheticEvent) => {
+  const formHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setError("");
+    setIsLoading(true);
 
-    setTargetUrl("");
-    console.log("targetURL", targetUrl);
+    try {
+      const response = await fetch("/api/codes/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ target_url: targetUrl }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Failed to create QR code");
+        setIsLoading(false);
+        return;
+      }
+
+      setTargetUrl("");
+      router.refresh();
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+      console.error("Error creating QR code:", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTargetUrl(e.currentTarget.value);
+    setError("");
   };
 
   return (
@@ -37,9 +67,15 @@ export const QRCodeGenerationForm = () => {
               value={targetUrl}
               onChange={onChangeHandler}
               className="bg-white p-2 rounded-lg ml-1s max-w-150 w-full mx-auto focus-within:bg-amber-100"
+              disabled={isLoading}
             />
           </label>
         </fieldset>
+        {error && (
+          <div className="mb-4 p-2 bg-red-100 text-red-700 rounded-md text-sm">
+            {error}
+          </div>
+        )}
         <div className="mb-4">
           <p className="text-xsm">
             <span className="text-white bg-indigo-950 p-0.5 rounded-sm px-2 mr-1">
@@ -48,8 +84,8 @@ export const QRCodeGenerationForm = () => {
             Click to get your code
           </p>
         </div>
-        <Button type="submit" className="max-w-60 w-full mx-auto">
-          Create QR Code
+        <Button type="submit" className="w-full mx-auto" disabled={isLoading}>
+          {isLoading ? "Creating..." : "Create QR Code"}
         </Button>
       </form>
     </div>
