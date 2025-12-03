@@ -10,6 +10,8 @@ interface QRCode {
   date: Date;
 }
 
+export const dynamic = 'force-dynamic'
+
 async function fetchQRCodes(): Promise<QRCode[]> {
   try {
     const cookieStore = await cookies();
