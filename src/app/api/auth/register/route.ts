@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Send request to backend registration endpoint
-    const backendUrl = process.env.BACKEND_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.BACKEND_API_URL;
     const response = await fetch(`${backendUrl}/sign-up`, {
       method: 'POST',
       headers: {

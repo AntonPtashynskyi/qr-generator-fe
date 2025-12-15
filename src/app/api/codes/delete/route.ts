@@ -21,7 +21,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const backendUrl = process.env.BACKEND_API_URL || "http://localhost:3001";
+    const backendUrl = process.env.BACKEND_API_URL;
     const response = await fetch(`${backendUrl}/qrcodes/${qr_id}`, {
       method: "DELETE",
       headers: {

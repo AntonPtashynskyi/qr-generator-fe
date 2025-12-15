@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Send request to backend login endpoint
-    const backendUrl = process.env.BACKEND_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.BACKEND_API_URL;
     const response = await fetch(`${backendUrl}/login`, {
       method: 'POST',
       headers: {

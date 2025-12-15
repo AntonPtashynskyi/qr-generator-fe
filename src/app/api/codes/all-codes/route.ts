@@ -11,7 +11,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const backendUrl = process.env.BACKEND_API_URL || "http://localhost:3001";
+    const backendUrl = process.env.BACKEND_API_URL;
+    
     const response = await fetch(`${backendUrl}/qrcodes`, {
       method: "GET",
       headers: {

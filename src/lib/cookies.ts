@@ -7,11 +7,14 @@ export function forwardCookiesFromBackend(
   backendResponse: Response,
   nextResponse: NextResponse
 ): void {
-  const setCookieHeaders = backendResponse.headers.get('set-cookie');
+  // Get all set-cookie headers (there can be multiple)
+  const setCookieHeaders = backendResponse.headers.getSetCookie?.() || [];
 
-  if (setCookieHeaders) {
-    // If backend sends set-cookie header, forward it to the client
-    nextResponse.headers.set('set-cookie', setCookieHeaders);
+  if (setCookieHeaders.length > 0) {
+    // Forward all cookies to the client
+    setCookieHeaders.forEach((cookie) => {
+      nextResponse.headers.append('set-cookie', cookie);
+    });
   }
 }
 
