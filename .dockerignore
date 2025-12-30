@@ -1,0 +1,20 @@
+# Ignore .env files when copying to Docker
+# Docker will use env_file directive instead
+.env
+.env.local
+.env*.local
+.env.production
+
+# Node modules (will be installed in container)
+node_modules
+
+# Build output
+.next
+dist
+out
+
+# Logs
+*.log
+
+# OS files
+.DS_Store

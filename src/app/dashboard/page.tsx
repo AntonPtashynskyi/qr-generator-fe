@@ -20,9 +20,8 @@ async function fetchQRCodes(): Promise<QRCode[]> {
     if (!accessToken) {
       return [];
     }
-    //  Need to remember that this code is executed on server side and use docker enviroment or developers env. port
     const response = await fetch(
-      `http://localhost:3000/api/codes/all-codes`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/codes/all-codes`,
       {
         headers: {
           Cookie: `accessToken=${accessToken}`,
