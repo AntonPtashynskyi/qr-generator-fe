@@ -20,8 +20,13 @@ async function fetchQRCodes(): Promise<QRCode[]> {
     if (!accessToken) {
       return [];
     }
+    // Use internal URL for server-side API calls
+    const baseUrl = process.env.NODE_ENV === 'production'
+      ? 'http://localhost:3000'  // Internal Next.js server
+      : process.env.NEXT_PUBLIC_BASE_URL;
+
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/codes/all-codes`,
+      `${baseUrl}/api/codes/all-codes`,
       {
         headers: {
           Cookie: `accessToken=${accessToken}`,
