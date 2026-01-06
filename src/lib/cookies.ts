@@ -26,9 +26,13 @@ export function setAuthCookies(
   accessToken: string,
   refreshToken: string
 ): void {
+  // For HTTP connections, secure flag must be false
+  // For HTTPS connections, secure flag should be true
+  const isHttps = process.env.USE_HTTPS === 'true';
+
   response.cookies.set('accessToken', accessToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isHttps,
     sameSite: 'lax',
     maxAge: 24 * 60 * 60, // 24 hours (matching your backend)
     path: '/',
@@ -36,7 +40,7 @@ export function setAuthCookies(
 
   response.cookies.set('refreshToken', refreshToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isHttps,
     sameSite: 'lax',
     maxAge: 7 * 24 * 60 * 60, // 7 days (matching your backend)
     path: '/',
