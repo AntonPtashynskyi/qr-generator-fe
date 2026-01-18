@@ -1,5 +1,7 @@
 "use client";
 import React, { ReactElement, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 interface BlockSwitcherProps {
   children: [ReactElement, ReactElement];
@@ -11,26 +13,22 @@ export const BlockSwitcher = ({ children }: BlockSwitcherProps) => {
   const isLogin = mode === "login" ? true : false;
 
   return (
-    <div className="">
-      <div className="relative w-[95%] md:w-[400px] mx-auto pt-6">
-        <button
-          className={`cursor-pointer relative top-0.5 rounded-t-md  text-[12px] px-2 border-0 mr-1.5 ${
-            isLogin ? "bg-[white]" : "bg-white/50"
-          }`}
+    <Card className="md:w-100 pt-6 mt-7 mx-3 md:mx-auto">
+      <div className="px-4 mx-a flex gap-1 justify-center flex-wrap">
+        <Button
+          className={` ${isLogin ? "bg-[black]" : "bg-black/50"}`}
           onClick={() => setMode("login")}
         >
           Login
-        </button>
-        <button
-          className={`cursor-pointer relative top-0.5 rounded-t-md text-[12px] px-2 border-0 ${
-            isLogin ? "bg-white/50 " : "bg-[white]"
-          }`}
+        </Button>
+        <Button
+          className={` ${isLogin ? "bg-black/50 " : "bg-[black]"}`}
           onClick={() => setMode("register")}
         >
           Registration
-        </button>
-        {mode === "login" ? login : registration}
+        </Button>
       </div>
-    </div>
+      {mode === "login" ? login : registration}
+    </Card>
   );
 };

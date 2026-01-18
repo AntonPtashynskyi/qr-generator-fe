@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} antialiased bg-sea-green overflow-x-hidden`}
       >
-        <header className='p-2 bg-button-green text-white uppercase font-semibold text-center fixed mb-2.5 left-0 right-0 z-50 shadow-md'>QR Generation App</header>
+        <header className='p-2 bg-black text-white uppercase font-semibold text-center fixed mb-2.5 left-0 right-0 z-50 shadow-md border-b-1 border-white'>QR Generation App</header>
         <main className='pt-6'>
         {children}
         </main>

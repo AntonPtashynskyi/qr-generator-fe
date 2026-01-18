@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "../Button";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export const QRCodeGenerationForm = () => {
@@ -47,14 +47,14 @@ export const QRCodeGenerationForm = () => {
   };
 
   return (
-    <div className=" bg-sea-green p-5 rounded-md max-w-[500px]">
+    <div className=" bg-gray-200 p-5 rounded-md max-w-[500px]">
       <form className="" onSubmit={formHandler}>
         <fieldset id="commentFS" className="mb-4">
           <legend className="font-bold uppercase">Generate QR Code</legend>
           <label className="p-1">
             <div className="mb-2">
               <p className="text-xsm">
-                <span className="text-white bg-indigo-950 p-0.5 rounded-sm px-2">
+                <span className="text-white bg-green-950 p-0.5 rounded-sm px-2">
                   1
                 </span>{" "}
                 Complete the content
@@ -78,7 +78,7 @@ export const QRCodeGenerationForm = () => {
         )}
         <div className="mb-4">
           <p className="text-xsm">
-            <span className="text-white bg-indigo-950 p-0.5 rounded-sm px-2 mr-1">
+            <span className="text-white bg-green-950 p-0.5 rounded-sm px-2 mr-1">
               2
             </span>
             Click to get your code
